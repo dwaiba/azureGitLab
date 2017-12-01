@@ -11,7 +11,7 @@ docker exec -ti azure-cli-python bash -c "az login && bash"
 
 ``
 
-export storageName="persistentStore"
+export storageName="ryStore"
 
 export storageResourceGroup="storageGroup"
 
