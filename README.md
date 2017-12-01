@@ -19,7 +19,7 @@ export resourceGroupLocation="westeurope"
 
 az group create --name $storageResourceGroup --location $resourceGroupLocation
 
-az group deployment create --resource-group $storageResourceGroup --name DeployStorage --template-uri https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deployStorage.json --parameters --parameters "{\"name\":{\"value\":\"rystore\"},\"location\":{\"value\":\"westeurope\"},\"accountType\":{\"value\":\"Standard_GRS\"},\"encryptionEnabled\":{\"value\":\"false\"},\"httpsTrafficOnlyEnabled\":{\"value\":\"false\"}}" --debug
+az group deployment create --resource-group $storageResourceGroup --name DeployStorage --template-uri https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deployStorage.json --parameters "{\"name\":{\"value\":\"rystore\"},\"location\":{\"value\":\"westeurope\"},\"accountType\":{\"value\":\"Standard_GRS\"}}" --debug
 
 az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup
 
