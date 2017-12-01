@@ -13,22 +13,17 @@ docker exec -ti azure-cli-python bash -c "az login && bash"
 export storageName="persistentStore"
 export storageResourceGroup="storageGroup"
 export resourceGroupLocation="westeurope"
-
 az group create --name $storageResourceGroup --location $resourceGroupLocation
-
 az group deployment create --resource-group $storageResourceGroup --name DeployStorage --template-file https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deployStorage.json --parameters --parameters "{\"name\":{\"value\":\"rystore\"},\"location\":{\"value\":\"westeurope\"},\"accountType\":{\"value\":\"Standard_GRS\"},\"encryptionEnabled\":{\"value\":\"false\"},\"httpsTrafficOnlyEnabled\":{\"value\":\"false\"}}" --debug
-
 az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup
-
 storageConnectionString=$(az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup)
-
 az storage share create --name share1 --connection-string=$storageConnectionString
 az storage share create --name share2 --connection-string=$storageConnectionString
 az storage share create --name share3 --connection-string=$storageConnectionString
 az storage share create --name share4 --connection-string=$storageConnectionString
 az storage share create --name share5 --connection-string=$storageConnectionString
-
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
+
 ``
 
 #### deployInfra
