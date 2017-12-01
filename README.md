@@ -10,7 +10,7 @@ az group create -l westeurope -n gitlabazurewe && az group deployment create -g 
 ``
 ### Deploy from Portal
 
-<a href="https://preview.portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdwaiba%2FazureGitLab%2Fmaster%2FdeployInfrastructure.json" target="_blank"><img alt="Deploy to Azure" src="https://raw.githubusercontent.com/cloudgear-io/azure-docker4azureoms/master/dockerce4azure.png" /></a>
+<a href="https://preview.portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdwaiba%2FazureGitLab%2Fmaster%2FdeployInfrastructure.json" target="_blank"><img alt="Deploy to Azure" src="https://camo.githubusercontent.com/9285dd3998997a0835869065bb15e5d500475034/687474703a2f2f617a7572656465706c6f792e6e65742f6465706c6f79627574746f6e2e706e67" /></a>
 
 Please provide the following as the deployment script in the portal parameter
 ``sh
