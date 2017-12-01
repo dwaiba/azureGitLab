@@ -1,15 +1,9 @@
 #!/bin/bash
 
-storageName="persistantStore"
+storageName="persistentStore"
 storageResourceGroup="storageGroup"
 resourceGroupLocation="westeurope"
-storageTemplateFilePath="PATH"
-storageParameterFilePath="PATH"
-gitlabResourceGroup="gitlabGroup"
-gitlabTemplateFilePath="PATH"
-gitlabParameterFilePath="PATH"
 
-# Azure CLI needs to be installed: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 az group create --name $storageResourceGroup --location $resourceGroupLocation
 
 az group deployment create --resource-group $storageResourceGroup --name DepolyStorage --template-file $storageTemplateFilePath --parameters $storageParameterFilePath
@@ -26,6 +20,3 @@ az storage share create --name share5 --connection-string=$storageConnectionStri
 
 # apt-get install jq
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
-
-az group create --name $gitlabResourceGroup --location $resourceGroupLocation
-az group deployment create --resource-group $gitlabResourceGroup --name DeployGitlab --template-file $gitlabTemplateFilePath --parameters $gitlabParameterFilePath
