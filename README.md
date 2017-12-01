@@ -10,7 +10,22 @@ docker exec -ti azure-cli-python bash -c "az login && bash"
 
 #### deployStorage
 Please shoot the following from the az cli
+``
+export storageName="rystore"
+export storageResourceGroup="storageGroup"
+export resourceGroupLocation="westeurope"
+az group create --name $storageResourceGroup --location $resourceGroupLocation
+az group deployment create --resource-group $storageResourceGroup --name DeployStorage --template-uri https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deployStorage.json --parameters "{\"name\":{\"value\":\"rystore\"},\"location\":{\"value\":\"westeurope\"},\"accountType\":{\"value\":\"Standard_GRS\"}}" --debug
+``
 
+The following are shot post storage availability
+
+``
+az storage account show-connection-string --name $storageName --resource-group $storageResourceGroupstorage
+ConnectionString=$(az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup|grep connectionString|awk '{print $2 }')
+az storage share create --name share1 --connection-string=$storageConnectionString
+storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
+``
 
 #### deployInfra
 Use the shares created above with the key to shoot the following
