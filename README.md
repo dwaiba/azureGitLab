@@ -10,6 +10,7 @@ docker exec -ti azure-cli-python bash -c "az login && bash"
 #### deployStorage
 
 ``
+
 export storageName="persistentStore"
 
 export storageResourceGroup="storageGroup"
@@ -36,6 +37,8 @@ az storage share create --name share4 --connection-string=$storageConnectionStri
 az storage share create --name share5 --connection-string=$storageConnectionString
 
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
+
+
 ``
 
 #### deployInfra
