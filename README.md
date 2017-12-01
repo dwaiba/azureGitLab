@@ -1,6 +1,5 @@
 # azureGitLab
-### Run Dockerized azure-cli locally with authentication of cli via 
-``https://aka.ms/devicelogin``
+### Run Dockerized azure-cli locally with authentication of cli via aka.ms/devicelogin
 
 ``
 docker pull -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-python
