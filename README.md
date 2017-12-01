@@ -5,11 +5,33 @@ docker pull -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-pyt
 docker exec -ti azure-cli-python bash -c "az login && bash"
 ``
 ### Deploy from CLI - Once inside the CLI Container and logged into azzure cli please deploy the whole gitlab cluster as follows
-### deployStorage
+#### deployStorage
 
 ``
+export storageName="persistentStore"
+export storageResourceGroup="storageGroup"
+export resourceGroupLocation="westeurope"
+
+az group create --name $storageResourceGroup --location $resourceGroupLocation
+
+az group deployment create --resource-group $storageResourceGroup --name DeployStorage --template-file https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deployStorage.json --parameters --parameters "{\"name\":{\"value\":\"rystore\"},\"location\":{\"value\":\"westeurope\"},\"accountType\":{\"value\":\"Standard_GRS\"},\"encryptionEnabled\":{\"value\":\"false\"},\"httpsTrafficOnlyEnabled\":{\"value\":\"false\"}}" --debug
+
+az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup
+
+storageConnectionString=$(az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup)
+
+az storage share create --name share1 --connection-string=$storageConnectionString
+az storage share create --name share2 --connection-string=$storageConnectionString
+az storage share create --name share3 --connection-string=$storageConnectionString
+az storage share create --name share4 --connection-string=$storageConnectionString
+az storage share create --name share5 --connection-string=$storageConnectionString
+
+# apt-get install jq
+storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
 ``
-az group create -l westeurope -n gitlabazurewe && az group deployment create -g gitlabazurewe -n gitlabazurewe --template-uri https://raw.githubusercontent.com/Annonator/azureGitlabDeployment/master/deployInfrastructure.json --parameters "{\"vmssName\":{\"value\":\"gitlab\"},\"instanceCount\":{\"value\": 2},\"adminPassword\":{\"value\":\"bangboom23D#\"},\"storageAccountName\":{\"value\":\"Nab00Dag0baH\"},\"storageAccountKey1\":{\"value\":\"bangboom23D#\"},\"storageAccountKey2\":{\"value\":\"bangboom23D#\"},\"storageAccountKey3\":{\"value\":\"bangboom23D#\"},\"shareName\":{\"value\":\"gitlabshare\"},\"rediscacheName\":{\"value\":\"gitlabredis\"},\"sqlServerName\":{\"value\": \"gitlabsql\"},\"sqladministratorLogin\":{\"value\":\"sqladmin1\"},\"sqlAdministratorLoginPassword\":{\"value\":\"bangboom23D#\"},\"customScriptUri\":{\"value\":\"https://raw.githubusercontent.com/Annonator/azureGitlabDeployment/master/deploy.sh\"}}" --debug
+#### deployInfra
+``
+az group create -l westeurope -n gitlabazurewe && az group deployment create -g gitlabazurewe -n gitlabazurewe --template-uri https://raw.githubusercontent.com/Annonator/azureGitlabDeployment/master/deployInfrastructure.json --parameters "{\"vmssName\":{\"value\":\"gitlab\"},\"instanceCount\":{\"value\": 2},\"adminPassword\":{\"value\":\"bangboom23D#\"},\"storageAccountName\":{\"value\":\"Nab00Dag0baH\"},\"storageAccountKey1\":{\"value\":\"bangboom23D#\"},\"storageAccountKey2\":{\"value\":\"bangboom23D#\"},\"storageAccountKey3\":{\"value\":\"bangboom23D#\"},\"shareName\":{\"value\":\"gitlabshare\"},\"rediscacheName\":{\"value\":\"gitlabredis\"},\"sqlServerName\":{\"value\": \"gitlabsql\"},\"sqladministratorLogin\":{\"value\":\"sqladmin1\"},\"sqlAdministratorLoginPassword\":{\"value\":\"bangboom23D#\"},\"customScriptUri\":{\"value\":\"https://raw.githubusercontent.com/Annonator/azureGitlabDeployment/master/mountazurefiles.sh\"}}" --debug
 ``
 ### Deploy from Portal
 
