@@ -8,6 +8,7 @@ docker exec -ti azure-cli-python bash -c "az login && bash"
 ### Deploy from CLI - Once inside the CLI Container and logged into azzure cli please deploy the whole gitlab cluster as follows
 
 #### deployStorage
+Please shoot the following from the az cli
 
 ``
 export storageName="rystore"
@@ -25,7 +26,8 @@ az group deployment create --resource-group $storageResourceGroup --name DeployS
 The following are shot post storage availability
 
 ``
-az storage account show-connection-string --name $storageName --resource-group $storageResourceGroupstorageConnectionString=$(az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup|grep connectionString|awk '{print $2 }')
+az storage account show-connection-string --name $storageName --resource-group $storageResourceGroupstorage
+ConnectionString=$(az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup|grep connectionString|awk '{print $2 }')
 az storage share create --name share1 --connection-string=$storageConnectionString
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
 ``
