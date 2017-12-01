@@ -23,7 +23,6 @@ az storage share create --name share3 --connection-string=$storageConnectionStri
 az storage share create --name share4 --connection-string=$storageConnectionString
 az storage share create --name share5 --connection-string=$storageConnectionString
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
-
 ``
 
 #### deployInfra
