@@ -6,6 +6,7 @@ docker pull -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-pyt
 docker exec -ti azure-cli-python bash -c "az login && bash"
 ``
 ### Deploy from CLI - Once inside the CLI Container and logged into azzure cli please deploy the whole gitlab cluster as follows
+
 #### deployStorage
 
 ``
@@ -16,13 +17,14 @@ export storageResourceGroup="storageGroup"
 export resourceGroupLocation="westeurope"
 
 az group create --name $storageResourceGroup --location $resourceGroupLocation
+
 az group deployment create --resource-group $storageResourceGroup --name DeployStorage --template-uri https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deployStorage.json --parameters "{\"name\":{\"value\":\"rystore\"},\"location\":{\"value\":\"westeurope\"},\"accountType\":{\"value\":\"Standard_GRS\"}}" --debug
+
 ``
 
 The following are shot post storage availability
 
 ``
-
 az storage account show-connection-string --name $storageName --resource-group $storageResourceGroupstorageConnectionString=$(az storage account show-connection-string --name $storageName --resource-group $storageResourceGroup|grep connectionString|awk '{print $2 }')
 az storage share create --name share1 --connection-string=$storageConnectionString
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
