@@ -1,6 +1,8 @@
 # azureGitLab
-### Run Dockerized azure-cli locally with authentication of cli via ``https://aka.ms/devicelogin``
-``sh
+### Run Dockerized azure-cli locally with authentication of cli via 
+``https://aka.ms/devicelogin``
+
+``
 docker pull -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-python
 docker exec -ti azure-cli-python bash -c "az login && bash"
 ``
@@ -26,9 +28,9 @@ az storage share create --name share3 --connection-string=$storageConnectionStri
 az storage share create --name share4 --connection-string=$storageConnectionString
 az storage share create --name share5 --connection-string=$storageConnectionString
 
-# apt-get install jq
 storageKey=$(az storage account keys list --account-name $storageName --resource-group $storageResourceGroup | jq -r '.[0].value')
 ``
+
 #### deployInfra
 ``
 az group create -l westeurope -n gitlabazurewe && az group deployment create -g gitlabazurewe -n gitlabazurewe --template-uri https://raw.githubusercontent.com/Annonator/azureGitlabDeployment/master/deployInfrastructure.json --parameters "{\"vmssName\":{\"value\":\"gitlab\"},\"instanceCount\":{\"value\": 2},\"adminPassword\":{\"value\":\"bangboom23D#\"},\"storageAccountName\":{\"value\":\"Nab00Dag0baH\"},\"storageAccountKey1\":{\"value\":\"bangboom23D#\"},\"storageAccountKey2\":{\"value\":\"bangboom23D#\"},\"storageAccountKey3\":{\"value\":\"bangboom23D#\"},\"shareName\":{\"value\":\"gitlabshare\"},\"rediscacheName\":{\"value\":\"gitlabredis\"},\"sqlServerName\":{\"value\": \"gitlabsql\"},\"sqladministratorLogin\":{\"value\":\"sqladmin1\"},\"sqlAdministratorLoginPassword\":{\"value\":\"bangboom23D#\"},\"customScriptUri\":{\"value\":\"https://raw.githubusercontent.com/Annonator/azureGitlabDeployment/master/mountazurefiles.sh\"}}" --debug
