@@ -317,7 +317,7 @@
                     "fileUris": [
                       "[parameters('customScriptUri')]"
                     ],
-                    "commandToExecute": "[concat('bash deploymentTest.sh ', parameters('storageAccountName'), ' ', parameters('storageAccountKey1'), ' ', parameters('storageAccountKey2'), ' ', parameters('storageAccountKey3'), ' ', parameters('shareName'), ' ', parameters('mountpointPath'), ' ', parameters('storageAccountName'))]"
+                    "commandToExecute": "[concat('bash mountazurefiles.sh ', parameters('storageAccountName'), ' ', parameters('storageAccountKey1'), ' ', parameters('storageAccountKey2'), ' ', parameters('storageAccountKey3'), ' ', parameters('shareName'), ' ', parameters('mountpointPath'), ' ', parameters('storageAccountName'))]"
                   }
                 }
               }
