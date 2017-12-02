@@ -33,7 +33,7 @@ az group create -l westeurope -n gitlabazurewe && az group deployment create -g 
 
 Please provide the following as the deployment script in the portal parameter
 ``
-https://raw.githubusercontent.com/dwaiba/azureGitLab/master/deploy.sh
+https://raw.githubusercontent.com/dwaiba/azureGitLab/master/mountazurefiles.sh
 ``
 ### Visualize
 <a href="http://armviz.io/#/?load=https://preview.portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdwaiba%2FazureGitLab%2Fmaster%2FdeployInfrastructure.json" target="_blank">  <img src="http://armviz.io/visualizebutton.png" /> </a> 
